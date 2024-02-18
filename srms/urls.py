@@ -8,10 +8,14 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', views.index, name='home'),
-    path('dashboard/', include('dashboard.urls')),
     path('results/', include('results.urls')),
+    path('subjects/', include('subjects.urls')),
+    path('students/', include('students.urls')),
+    path('dashboard/', include('dashboard.urls')),
+    path('classes/', include('student_classes.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 if settings.DEBUG:
