@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,7 @@ ROOT_URLCONF = "srms.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR,'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -75,8 +78,12 @@ WSGI_APPLICATION = "srms.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        'ENGINE':'django.db.backends.mysql',
+        'NAME':'student_management_system',
+        'USER':'student_management_system',
+        'PASSWORD':'new_password',
+        'HOST':'localhost',
+        'PORT':'3306',
     }
 }
 
@@ -109,6 +116,8 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
+USE_L10N = True
+
 USE_TZ = True
 
 
@@ -119,5 +128,11 @@ STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+LOGOUT_REDIRECT_URL = 'index'
+LOGIN_URL = 'index'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
