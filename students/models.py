@@ -2,6 +2,8 @@ from django.db import models
 from student_classes.models import StudentClass
 from django.urls import reverse
 from datetime import date
+from django.utils import timezone
+
 # Create your models here.
 
 class Student(models.Model):
@@ -12,11 +14,12 @@ class Student(models.Model):
     )
 
     student_name = models.CharField(max_length=100)
-    student_roll = models.IntegerField(unique=True)
+    student_matricno = models.IntegerField(unique=True)
     student_email = models.EmailField()
     student_gender = models.CharField(max_length=8, choices=select_gender)
     student_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE)
-    student_date_of_birth = models.DateField(default=date.today())
+    #student_date_of_birth = models.DateField(default=date.today())
+    student_date_of_birth = models.DateField(default=timezone.now)
     student_reg = models.DateField(auto_now_add=True, auto_now=False)
 
     def get_absolute_url(self):
