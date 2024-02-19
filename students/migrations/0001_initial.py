@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("student_name", models.CharField(max_length=100)),
-                ("student_roll", models.IntegerField(unique=True)),
+                ("student_matricno", models.IntegerField(unique=True)),
                 ("student_email", models.EmailField(max_length=254)),
                 (
                     "student_gender",

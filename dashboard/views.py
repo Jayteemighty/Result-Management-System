@@ -28,8 +28,6 @@ def index(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
-        print("\nUser Name = ",username)
-        print("Password = ",password)
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
@@ -37,7 +35,7 @@ def index(request):
         else:
             context = {'message':'Invalid User Name and Password'}
             return render(request, 'index.html', context)
-    return render(request, 'index.html', {'name': 'Adesina Joshua', 'pass': 'login@srms'})
+    return render(request, 'index.html', {'name': 'Adesina Joshua', })
 
 
 class DashboardView(LoginRequiredMixin,TemplateView):
@@ -58,10 +56,10 @@ def find_result_view(request):
     if request.method == "POST":
         data = request.POST
         # data = json.loads(form)
-        roll = int(data['rollid'])
+        matricno = int(data['matricid'])
         pk = int(data['class'])
         clss = get_object_or_404(DeclareResult, pk=pk)
-        if clss.select_student.student_roll == roll:
+        if clss.select_student.student_matricno == matricno:
             data = {
                 'pk': data['class']
             }
