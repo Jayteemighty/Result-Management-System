@@ -10,7 +10,7 @@ admin.autodiscover()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='home'),
-    path('accounts/', include('accounts.urls')),
+    #path('accounts/', include('accounts.urls')),
     path('results/', include('results.urls')),
     path('subjects/', include('subjects.urls')),
     path('students/', include('students.urls')),
