@@ -13,4 +13,17 @@ To access the source code and documentation, follow these steps:
    ```bash
    git clone https://github.com/Jayteemighty/Result-Management-System.git
 
+## Running the Server
 
+Before accessing the project locally, ensure that you have the necessary dependencies installed and the server running. Follow these steps:
+
+1. Navigate to the root directory of the cloned repository.
+2. Install the required dependencies using the following command:
+
+   ```bash
+   pip install -r requirements.txt
+
+3. Start the server by running the following command:
+
+   ```bash
+   python manage.py runserver
