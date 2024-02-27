@@ -10,7 +10,7 @@ class DeclareResult(models.Model):
     select_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE)
     select_student = models.ForeignKey(Student, on_delete=models.CASCADE)
     marks = JSONField(blank=True)
-    cgpa = JSONField(blank=True)
+    #cgpa = JSONField(blank=True)
 
     def get_absolute_url(self):
         return reverse('results:declare_result')
