@@ -104,7 +104,7 @@ class DeclareResultListView(LoginRequiredMixin, ListView):
     model = DeclareResult
 
     field_list = [
-        'Student Name', 'Matric No', 'Class', 'Reg Date', 'cgpa', 'View Result' 
+        'Student Name', 'Matric No', 'Class', 'Reg Date', 'View Result' 
     ]
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
