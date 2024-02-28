@@ -5,7 +5,7 @@ from .models import DeclareResult
 class DeclareResultForm(ModelForm):
     class Meta:
         model = DeclareResult
-        fields = ['select_class', 'select_student']
+        fields = ['select_class', 'select_student'] #remember to add cgpa to fields
         widgets = {
             'select_class': forms.Select(attrs={'class': 'form-control'}),
             'select_student':  forms.Select(attrs={'class': 'form-control'}),
