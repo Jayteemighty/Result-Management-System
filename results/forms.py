@@ -14,5 +14,6 @@ class DeclareResultForm(ModelForm):
         labels = {
             'select_class' : 'Class',
             'select_student' : 'Select Student',
+            
             #'cgpa': 'CGPA' 
         }
