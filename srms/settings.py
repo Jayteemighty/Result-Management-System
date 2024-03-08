@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 
+from decouple import config
+import environ
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,6 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-g+fetjhp1yyhk&4lq7zjl*ba66%#__#719_h^zl*gr24-n@4lz"
+
+# Take environment variables from .env.dev file
+environ.Env.read_env(os.path.join(BASE_DIR, ".env.dev"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -80,14 +88,26 @@ WSGI_APPLICATION = "srms.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+#DATABASES = {
+#    "default": {
+#        'ENGINE':'django.db.backends.mysql',
+#        'NAME':'student_management_system',
+#        'USER':'student_management_system',
+#        'PASSWORD':'new_password',
+#        'HOST':'localhost',
+#        'PORT':'3306',
+#    }
+#}
+
 DATABASES = {
     "default": {
-        'ENGINE':'django.db.backends.mysql',
-        'NAME':'student_management_system',
-        'USER':'student_management_system',
-        'PASSWORD':'new_password',
-        'HOST':'localhost',
-        'PORT':'3306',
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": config("DB_NAME"),
+        "USER": config("DB_USER"),
+        "PASSWORD": config("DB_PASSWORD"),
+        "HOST": config("DB_HOST"),
+        "PORT": config("DB_PORT"),
+        "CONN_MAX_AGE": 600,
     }
 }
 
