@@ -10,6 +10,7 @@ class DeclareResultForm(ModelForm):
             'select_class': forms.Select(attrs={'class': 'form-control'}),
             'select_student':  forms.Select(attrs={'class': 'form-control'}),
             #'cgpa': forms.NumberInput(attrs={'class': 'form-control'})
+            #'unit': forms.NumberInput(attrs={'class': 'form-control'})
         }
         labels = {
             'select_class' : 'Class',
