@@ -1,0 +1,14 @@
+asgiref
+Django
+html5lib
+jsonfield
+Pillow
+PyPDF2  # PyPDF2 does not have a new version since the provided one.
+pytz
+reportlab
+six
+sqlparse
+webencodings  # Webencodings does not have a new version since the provided one.
+xhtml2pdf
+psycopg2
+gunicorn
