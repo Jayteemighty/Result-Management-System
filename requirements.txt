@@ -1,12 +1,12 @@
-asgiref==3.5.0
-Django==4.0.2
-html5lib==1.1
-jsonfield==3.1.0
-Pillow==9.0.0
-PyPDF2==1.26.0  # PyPDF2 does not have a new version since the provided one.
-pytz==2021.3
-reportlab==3.6.1
-six==1.16.0
-sqlparse==0.4.2
-webencodings==0.5.1  # Webencodings does not have a new version since the provided one.
-xhtml2pdf==0.2.6
+asgiref
+Django
+html5lib
+jsonfield
+Pillow
+PyPDF2  # PyPDF2 does not have a new version since the provided one.
+pytz
+reportlab
+six
+sqlparse
+webencodings  # Webencodings does not have a new version since the provided one.
+xhtml2pdf
