@@ -20,7 +20,7 @@ urlpatterns = [
     
     
 ]
-urlpatterns += staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
