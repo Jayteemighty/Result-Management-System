@@ -10,3 +10,5 @@ six
 sqlparse
 webencodings  # Webencodings does not have a new version since the provided one.
 xhtml2pdf
+psycopg2
+gunicorn
