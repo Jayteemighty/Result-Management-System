@@ -23,7 +23,7 @@ def validate_data(request):
         rc = request.GET['selectedClass']
         subjects = []
         for s in smt:
-            if s.select_class.class_name in rc and s.select_class.section in rc:
+            if s.select_class.class_name in rc and s.select_class.department in rc:
                 subjects.append(s.select_subject)
         sir_subjects = serializers.serialize('json', subjects)
         data['subjects'] = sir_subjects

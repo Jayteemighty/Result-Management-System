@@ -16,4 +16,4 @@ class DeclareResult(models.Model):
     def get_absolute_url(self):
         return reverse('results:declare_result')
     def __str__(self):
-        return "%s Section-%s" % (self.select_class.class_name, self.select_class.section)
+        return "%s Department-%s" % (self.select_class.class_name, self.select_class.department)
