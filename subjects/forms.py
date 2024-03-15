@@ -9,7 +9,7 @@ class SubjectForm(ModelForm):
         widgets = {
             'subject_name': forms.TextInput(attrs={'class': 'form-control'}),
             'subject_code':  forms.TextInput(attrs={'class': 'form-control'}),
-            #'subject_unit': forms.NumberInput(attrs={'class':'form-control'}),
+            'subject_unit': forms.NumberInput(attrs={'class':'form-control'}),
         }
 
 class SubjectCombinationForm(ModelForm):

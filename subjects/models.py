@@ -7,7 +7,7 @@ from student_classes.models import StudentClass
 class Subject(models.Model):
     subject_name = models.CharField(max_length=100)
     subject_code = models.CharField(max_length=100)
-    #subject_unit = models.IntegerField(default=1)
+    subject_unit = models.IntegerField(default=1)
     subject_creation_date = models.DateTimeField(auto_now=False, auto_now_add=True)
     subject_update_date = models.DateTimeField(auto_now=True, auto_now_add=False)
 
