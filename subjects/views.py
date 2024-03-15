@@ -22,7 +22,7 @@ class SubjectCreateView(LoginRequiredMixin, CreateView):
 class SubjectListView(LoginRequiredMixin, ListView):
     model = Subject
     field_list = [
-        'Subject Name', 'Subject Code', 'Creation Date', 'Last Updated'
+        'Subject Name', 'Subject Code', 'Subject Unit', 'Creation Date', 'Last Updated'
     ]
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,7 +66,7 @@ class SubjectCombinationCreateView(LoginRequiredMixin, CreateView):
 class SubjectCombinationListView(LoginRequiredMixin, ListView):
     model = SubjectCombination
     field_list = [
-        'Class', 'Section', 'Subject'
+        'Class', 'Department', 'Subject'
     ]
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

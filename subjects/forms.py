@@ -5,7 +5,7 @@ from .models import Subject, SubjectCombination
 class SubjectForm(ModelForm):
     class Meta:
         model = Subject
-        fields = ['subject_name', 'subject_code']
+        fields = ['subject_name', 'subject_code', 'subject_unit']
         widgets = {
             'subject_name': forms.TextInput(attrs={'class': 'form-control'}),
             'subject_code':  forms.TextInput(attrs={'class': 'form-control'}),

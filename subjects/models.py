@@ -27,5 +27,5 @@ class SubjectCombination(models.Model):
         return reverse('subjects:subject_combination_list')
 
     def __str__(self):
-        return '%s Section-%s'%(self.select_class.class_name, self.select_class.section)
+        return '%s Department-%s'%(self.select_class.class_name, self.select_class.department)
     
