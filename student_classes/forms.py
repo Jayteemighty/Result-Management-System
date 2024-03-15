@@ -10,5 +10,5 @@ class StudentClassForm(ModelForm):
         widgets = {
             'class_name': forms.TextInput(attrs={'class': 'form-control'}),
             'class_name_in_numeric':  forms.NumberInput(attrs={'class': 'form-control'}),
-            'section':  forms.TextInput(attrs={'class': 'form-control'}),
+            'department':  forms.TextInput(attrs={'class': 'form-control'}),
         }

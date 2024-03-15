@@ -24,7 +24,7 @@ class StudentClassListView(LoginRequiredMixin, ListView):
     model = StudentClass
 
     field_list = [
-        'Class Name', 'Class Name In Numeric', '', 'Creation Date'
+        'Class Name', 'Class Name In Numeric', 'Department', 'Creation Date'
     ]
     
     def get_context_data(self, **kwargs):
