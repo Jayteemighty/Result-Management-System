@@ -25,6 +25,7 @@
     <td class="">{{ object.marks.subject_0_mark }} | {{ object.marks.subject_1_mark }} | {{ object.marks.subject_2_mark }}</td>
     <td class="">{{ object.point.subject_0_mark }} | {{ object.point.subject_1_mark }} | {{ object.point.subject_2_mark }}</td>
     <td class="">{{ object.unit.subject_0_mark }} | {{ object.unit.subject_1_mark }} | {{ object.unit.subject_2_mark }}</td>
+    <td>
         <a href="{% url 'results:update_result' object.id %}" class="btn btn-primary"><i class="fa fa-edit" title="Edit Record"></i>
         </a>
         <a href="{% url 'results:delete_result' object.id %}" class="btn btn-danger"><i class="fa fa-trash" title="Delete Record"></i>

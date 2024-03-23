@@ -44,7 +44,7 @@ def declare_result_view(request):
         student = Student.objects.get(id=pk)
         data.pop('select_class')
         data.pop('select_student')
-        DeclareResult.objects.create(select_class=clas, select_student=student, marks=data)
+        DeclareResult.objects.create(select_class=clas, select_student=student, marks=data, point=data, unit=data)
     else:
         form = DeclareResultForm()
         context['main_page_title'] = 'Declare Students Result'
@@ -87,6 +87,8 @@ def result_update_view(request, pk):
         result.select_class = clas
         result.select_student = student
         result.marks = data
+        result.unit= data
+        result.point = data
         result.save()
         print('\nResult updated\n')
         return redirect('results:result_list')
