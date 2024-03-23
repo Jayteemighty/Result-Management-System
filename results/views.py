@@ -35,16 +35,29 @@ def validate_data(request):
 def declare_result_view(request):
     context = {}
     if request.method == "POST":
-        form = request.POST
-        data = json.loads(json.dumps(form))
-        data.pop('csrfmiddlewaretoken')
-        pk = data['select_class']
-        clas = StudentClass.objects.get(id=pk)
-        pk = data['select_student']
-        student = Student.objects.get(id=pk)
-        data.pop('select_class')
-        data.pop('select_student')
-        DeclareResult.objects.create(select_class=clas, select_student=student, marks=data, point=data, unit=data)
+        form = DeclareResultForm(request.POST)
+        if form.is_valid():
+            select_class = form.cleaned_data['select_class']
+            select_student = form.cleaned_data['select_student']
+            marks = {}
+            point = {}
+            unit = {}
+            for key, value in request.POST.items():
+                if key.startswith('subject_'):
+                    if key.endswith('_mark'):
+                        marks[key] = value
+                    elif key.endswith('_point'):
+                        point[key] = value
+                    elif key.endswith('_unit'):
+                        unit[key] = value
+            DeclareResult.objects.create(
+                select_class=select_class,
+                select_student=select_student,
+                marks=marks,
+                point=point,
+                unit=unit
+            )
+            return redirect('results:result_list')
     else:
         form = DeclareResultForm()
         context['main_page_title'] = 'Declare Students Result'
@@ -52,6 +65,8 @@ def declare_result_view(request):
         context['panel_title'] = 'Declare Result'
         context['form'] = form
     return render(request, "results/declareresult_form.html", context)
+
+
 
 def setup_update_view(request):
     data = {}
