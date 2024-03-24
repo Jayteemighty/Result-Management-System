@@ -22,6 +22,8 @@ from student_classes.models import StudentClass
 from results.models import DeclareResult
 from subjects.models import Subject
 from students.models import Student
+from django.template.loader import render_to_string
+
 
 
 def index(request):
@@ -74,14 +76,42 @@ def find_result_view(request):
 
 def result(request, pk):
     object = get_object_or_404(DeclareResult, pk=pk)
-    lst = []
-    marks = []
-    for i in range(int(len(object.marks)/2)):
-        lst.append(object.marks['subject_'+str(i)])
-        lst.append(object.marks['subject_'+str(i)+'_mark'])
-        marks.append(lst)
-        lst = []
-    return render(request, 'result.html', {'object':object,'pk':pk, 'marks':marks})
+    
+    # Initialize empty list to hold subject details
+    subjects = []
+    
+    # Iterate over the marks data
+    for key, value in object.marks.items():
+        # Check if the key represents a subject
+        if key.endswith('_mark'):
+            # Extract subject_id from the key
+            subject_id = key.split('_')[1]
+            
+            # Attempt to retrieve the Subject instance
+            try:
+                subject = Subject.objects.get(pk=subject_id)
+            except Subject.DoesNotExist:
+                continue
+            
+            # Construct keys for unit and point using the same index
+            unit_key = f'subject_{subject_id}_unit'
+            point_key = f'subject_{subject_id}_point'
+            
+            # Check if both unit and point keys exist in the object
+            if unit_key in object.unit and point_key in object.point:
+                # Append subject details to the list
+                subjects.append({
+                    'name': subject.subject_name,
+                    'mark': value,
+                    'unit': object.unit[unit_key],
+                    'point': object.point[point_key],
+                    'WGP':  round((float(object.unit[unit_key])) * float(object.point[point_key]),2),
+                })
+
+    return render(request, 'result.html', {'object': object, 'pk': pk, 'subjects': subjects})
+
+
+
 
 
 class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
@@ -107,17 +137,36 @@ def renderPdf(template, content={}):
         return None
 
 class pdf(View):
-    def get(self, request, id):
-        try:
-            query = get_object_or_404(DeclareResult, id=id)
-        except:
-            Http404('Content Not Found')
-        marks = []
-        lst = []
-        for i in range(int(len(query.marks)/2)):
-            lst.append(query.marks['subject_'+str(i)])
-            lst.append(query.marks['subject_'+str(i)+'_mark'])
-            marks.append(lst)
-            lst = []
-        article_pdf = renderPdf('result.html', {'object': query, 'marks':marks})
-        return HttpResponse(article_pdf, content_type='application/pdf')
+    def get(self, request, pk):
+        # Retrieve the DeclareResult object
+        query = get_object_or_404(DeclareResult, pk=pk)
+
+        # Initialize an empty list to hold subject details
+        subjects = []
+
+        # Iterate over the marks data
+        for i in range(int(len(query.marks) / 2)):
+            # Construct keys for mark, unit, and point using the same index
+            subject_key = 'subject_' + str(i)
+            mark_key = subject_key + '_mark'
+            unit_key = subject_key + '_unit'
+            point_key = subject_key + '_point'
+
+            # Check if all keys exist in the object
+            if all([mark_key in query.marks, unit_key in query.unit, point_key in query.point]):
+                # Retrieve subject details
+                subject_name = query.marks[subject_key]
+                mark = query.marks[mark_key]
+                unit = query.unit[unit_key]
+                point = query.point[point_key]
+
+                # Append subject details to the list
+                subjects.append({
+                    'name': subject_name,
+                    'mark': mark,
+                    'unit': unit,
+                    'point': point
+                })
+
+        # Render the PDF content using the result_pdf.html template
+        html = render_to_string('result_pdf.html', {'query': query, 'subjects': subjects})
