@@ -79,6 +79,8 @@ def result(request, pk):
     
     # Initialize empty list to hold subject details
     subjects = []
+    cwgp = 0  # Cumulative Weighted points
+    cu = 0    # Cumulative Units
     
     # Iterate over the marks data
     for key, value in object.marks.items():
@@ -99,16 +101,36 @@ def result(request, pk):
             
             # Check if both unit and point keys exist in the object
             if unit_key in object.unit and point_key in object.point:
+                unit = float(object.unit[unit_key])
+                point = float(object.point[point_key])
+                wgp = round(unit * point, 2)  # Calculate WGP
+                cwgp += wgp  # Update CWGP
+                cu += unit   # Update CU
+                
                 # Append subject details to the list
                 subjects.append({
                     'name': subject.subject_name,
                     'mark': value,
-                    'unit': object.unit[unit_key],
-                    'point': object.point[point_key],
-                    'WGP':  round((float(object.unit[unit_key])) * float(object.point[point_key]),2),
+                    'unit': unit,
+                    'point': point,
+                    'WGP': wgp,
                 })
+    
+    # Calculate CGPA
+    if cu != 0:
+        cgpa = round(cwgp / cu, 2)
+    else:
+        cgpa = 0
 
-    return render(request, 'result.html', {'object': object, 'pk': pk, 'subjects': subjects})
+    return render(request, 'result.html', {
+        'object': object,
+        'pk': pk,
+        'subjects': subjects,
+        'CWGP': cwgp,
+        'CU': cu,
+        'CGPA': cgpa,
+    })
+
 
 
 
