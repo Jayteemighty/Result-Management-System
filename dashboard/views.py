@@ -126,14 +126,11 @@ def result(request, pk):
         'object': object,
         'pk': pk,
         'subjects': subjects,
+        'WGP': wgp,
         'CWGP': cwgp,
         'CU': cu,
         'CGPA': cgpa,
     })
-
-
-
-
 
 
 class PasswordChangeView(LoginRequiredMixin, PasswordChangeView):
