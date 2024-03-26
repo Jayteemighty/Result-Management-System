@@ -107,7 +107,6 @@ def result(request, pk):
                 cwgp += wgp  # Update CWGP
                 cu += unit   # Update CU
                 
-                # Append subject details to the list
                 subjects.append({
                     'name': subject.subject_name,
                     'mark': value,
