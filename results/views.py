@@ -117,6 +117,7 @@ def result_delete_view(request, pk):
         return redirect('results:result_list')
     return render(request, "results/result_delete.html", {"object":obj})
 
+
 class DeclareResultListView(LoginRequiredMixin, ListView):
     model = DeclareResult
 
