@@ -23,6 +23,7 @@
     <td class="">{{ object.select_student.student_class }}</td>
     <!--<td class="">{{ object.select_student.student_reg }}</td>-->
     <!-- make sure to do the adjustment for summary showing all the courses and scores for each student-->
+    
     <td class="">
         {% for key, value in object.marks.items %}
             {{ value }}{% if not forloop.last %} | {% endif %}
