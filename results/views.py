@@ -117,17 +117,21 @@ def result_delete_view(request, pk):
         return redirect('results:result_list')
     return render(request, "results/result_delete.html", {"object":obj})
 
-class DeclareResultListView(LoginRequiredMixin, ListView):
-    model = DeclareResult
+from django.shortcuts import render
+from django.views.generic import ListView
+from .models import DeclareResult
+from subjects.models import Subject
 
-    field_list = [
-        'Student Name', 'Matric No', 'Class', 'Scores', 'point', 'unit'
-    ]
+class DeclareResultListView(ListView):
+    model = DeclareResult
+    template_name = 'results/declareresult_list.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['main_page_title'] = 'Manage Results'
-        context['panel_name']   =   'Results'
-        context['panel_title']  =   'View Results Info'
-        context['field_list']   =   self.field_list
+        context['panel_name'] = 'Results'
+        context['panel_title'] = 'View Results Info'
+        context['subjects'] = Subject.objects.all()  # Pass all subjects to the template
         return context
+
     

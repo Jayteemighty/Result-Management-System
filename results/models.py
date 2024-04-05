@@ -1,5 +1,5 @@
 from django.db import models
-from subjects.models import StudentClass
+from subjects.models import StudentClass, Subject
 from students.models import Student
 from django.urls import reverse
 from django.db.models import JSONField
@@ -9,6 +9,7 @@ from django.db.models import JSONField
 class DeclareResult(models.Model):
     select_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE)
     select_student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    subject_name = models.ManyToManyField(Subject)
     marks = JSONField(blank=True)
     point = JSONField(blank=True)
     unit = JSONField(blank=True)

@@ -1,56 +1,54 @@
 {% extends 'base.html' %}
 
 {% block main_page_title %}
-{{ main_page_title }}
+    {{ main_page_title }}
 {% endblock main_page_title %}
 
 {% block breadcumb %}
-<li><a href="{% url 'results:result_list' %}">{{ panel_name }}</a></li>
-<li class="active">{{ panel_title }}</li>
+    <li><a href="{% url 'results:result_list' %}">{{ panel_name }}</a></li>
+    <li class="active">{{ panel_title }}</li>
 {% endblock breadcumb %}
 
 {% block panel_title %}
-{{ panel_title }}
+    {{ panel_title }}
 {% endblock panel_title %}
 
 {% block panel %}
-{% include 'includes/manage_panel_top.html' %}
-{% for object in object_list %}
-<tr role="row" class="odd">
-    <td class="">{{ object.id }}</td>
-    <td class="">{{ object.select_student.student_name }}</td>
-    <td class="">{{ object.select_student.student_matricno }}</td>
-    <td class="">{{ object.select_student.student_class }}</td>
-    <!--<td class="">{{ object.select_student.student_reg }}</td>-->
-    
-    <td class="">
-        {% for key, value in object.marks.items %}
-            {{ value }}{% if not forloop.last %} | {% endif %}
-        {% endfor %}
-    </td>
-    <td class="">
-        {% for key, value in object.point.items %}
-            {{ value }}{% if not forloop.last %} | {% endif %}
-        {% endfor %}
-    </td>
-    <td class="">
-        {% for key, value in object.unit.items %}
-            {{ value }}{% if not forloop.last %} | {% endif %}
-        {% endfor %}
-    </td>
-    <td>
-        <a href="{% url 'results:update_result' object.id %}" class="btn btn-primary"><i class="fa fa-edit" title="Edit Record"></i>
-        </a>
-        <a href="{% url 'results:delete_result' object.id %}" class="btn btn-danger"><i class="fa fa-trash" title="Delete Record"></i>
-        </a>
-    </td>
-</tr>
-{% endfor %}
-{% include 'includes/manage_panel_bottom.html' %}
+    {% include 'includes/manage_panel_top.html' %}
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Matric No</th>
+                <th>Class</th>
+                {% for subject in subjects %}
+                    <th>{{ subject.subject_name }}</th>
+                {% endfor %}
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.select_student.student_name }}</td>
+                    <td>{{ object.select_student.student_matricno }}</td>
+                    <td>{{ object.select_class.class_name }}</td>
+                    {% for mark in object.marks %}
+                        <td>{{ mark }}</td>
+                    {% endfor %}
+                    <!--<td>
+                        <a href="{% url 'results:update_result' object.id %}" class="btn btn-primary">
+                            <i class="fa fa-edit" title="Edit Record"></i>
+                        </a>
+                        <a href="{% url 'results:delete_result' object.id %}" class="btn btn-danger">
+                            <i class="fa fa-trash" title="Delete Record"></i>
+                        </a>
+                    </td>-->
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include 'includes/manage_panel_bottom.html' %}
 {% endblock panel %}
-
-
-{% block javascript_code %}
-<script>
-</script>
-{% endblock javascript_code %}
