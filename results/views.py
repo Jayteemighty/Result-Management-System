@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from results.models import DeclareResult
 from results.forms import DeclareResultForm
-from subjects.models import SubjectCombination
+from subjects.models import SubjectCombination, Subject
 from student_classes.models import StudentClass
 from students.models import Student
 from django.http import HttpResponse, JsonResponse
@@ -117,10 +117,6 @@ def result_delete_view(request, pk):
         return redirect('results:result_list')
     return render(request, "results/result_delete.html", {"object":obj})
 
-from django.shortcuts import render
-from django.views.generic import ListView
-from .models import DeclareResult
-from subjects.models import Subject
 
 class DeclareResultListView(ListView):
     model = DeclareResult

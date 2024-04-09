@@ -15,7 +15,7 @@
 
 {% block panel %}
     {% include 'includes/manage_panel_top.html' %}
-    <div class="table-responsive">
+    <div class="table-responsive" style="overflow: scroll;">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -23,7 +23,7 @@
                     <th>Matric No</th>
                     <th>Class</th>
                     {% for subject in subjects %}
-                        <th>{{ subject.subject_name }}</th>
+                        <th>{{ subject.subject_name}} <br> {{subject.subject_unit }}</th>
                     {% endfor %}
                 </tr>
             </thead>
@@ -34,11 +34,12 @@
                         <td>{{ object.select_student.student_matricno }}</td>
                         <td>{{ object.select_class.class_name }}</td>
                         {% for subject in subjects %}
-                            <td>
-                                {% for key, value in object.marks.items %}
-                                        {{ value }}
-                                {% endfor %}
-                            </td>
+                            {% for key, value in object.marks.items %}
+                                <td>
+                                    {{ value }}
+                                </td>
+                            {% endfor %}
+                            
                         {% endfor %}
                         <td>
                             <a href="{% url 'results:update_result' object.id %}" class="btn btn-primary"><i class="fa fa-edit" title="Edit Record"></i>
