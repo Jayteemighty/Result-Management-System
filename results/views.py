@@ -118,9 +118,6 @@ def result_delete_view(request, pk):
     return render(request, "results/result_delete.html", {"object":obj})
 
 
-from django.views.generic import ListView
-from .models import DeclareResult, Subject
-
 class DeclareResultListView(ListView):
     model = DeclareResult
     template_name = 'results/declareresult_list.html'
