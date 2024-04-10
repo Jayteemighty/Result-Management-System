@@ -9,7 +9,6 @@ from django.db.models import JSONField
 class DeclareResult(models.Model):
     select_class = models.ForeignKey(StudentClass, on_delete=models.CASCADE)
     select_student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    #subject_name = models.ManyToManyField(Subject)
     marks = JSONField(blank=True)
     point = JSONField(blank=True)
     unit = JSONField(blank=True)

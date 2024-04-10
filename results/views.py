@@ -118,6 +118,9 @@ def result_delete_view(request, pk):
     return render(request, "results/result_delete.html", {"object":obj})
 
 
+from django.views.generic import ListView
+from .models import DeclareResult, Subject
+
 class DeclareResultListView(ListView):
     model = DeclareResult
     template_name = 'results/declareresult_list.html'
@@ -128,6 +131,9 @@ class DeclareResultListView(ListView):
         context['panel_name'] = 'Results'
         context['panel_title'] = 'View Results Info'
         context['subjects'] = Subject.objects.all()  # Pass all subjects to the template
+        context['i'] = range(len(context['subjects']))  # Generate a range of integers based on the number of subjects
+        context['marks'] = [f'subject_{index}_mark' for index in context['i']]  # Generate the marks list dynamically
         return context
+
 
     
