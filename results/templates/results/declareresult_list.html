@@ -19,6 +19,7 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
+                    <th>#<th>
                     <th>Student Name</th>
                     <th>Matric No</th>
                     <th>Class</th>
@@ -30,16 +31,17 @@
             <tbody>
                 {% for object in object_list %}
                     <tr>
+                        <td>#</td>
                         <td>{{ object.select_student.student_name }}</td>
                         <td>{{ object.select_student.student_matricno }}</td>
                         <td>{{ object.select_class.class_name }}</td>
-                        <td>  {% for key, value in object.marks.items %}
+                        {% for key, value in object.marks.items %}
                                 <td>{{ value }}</td>
-                            {% endfor %}
-                        </td>
+                        {% endfor %}
+                        
                         <td>
-                            <a href="{% url 'results:update_result' object.id %}" class="btn btn-primary"><i class="fa fa-edit" title="Edit Record"></i>
-                            </a>
+                            <!--<a href="{% url 'results:update_result' object.id %}" class="btn btn-primary"><i class="fa fa-edit" title="Edit Record"></i>
+                            </a>-->
                             <a href="{% url 'results:delete_result' object.id %}" class="btn btn-danger"><i class="fa fa-trash" title="Delete Record"></i>
                             </a>
                         
