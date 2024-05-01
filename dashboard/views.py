@@ -1,3 +1,4 @@
+
 from xhtml2pdf import pisa
 from django.template.loader import get_template
 from django.http import HttpResponse
@@ -79,6 +80,7 @@ def result(request, pk):
     
     # Initialize empty list to hold subject details
     subjects = []
+    wgp = []
     cwgp = 0  # Cumulative Weighted points
     cu = 0    # Cumulative Units
     
@@ -88,12 +90,15 @@ def result(request, pk):
         if key.endswith('_mark'):
             # Extract subject_id from the key
             subject_id = key.split('_')[1]
-            
+            #print(subject_id)
+            #print(key)
             # Attempt to retrieve the Subject instance
-            try:
-                subject = Subject.objects.get(pk=subject_id)
-            except Subject.DoesNotExist:
-                continue
+            #try:
+            #    subject = Subject.objects.get(pk=subject_id)
+            #    print(subject)
+            #except Subject.DoesNotExist:
+            #    print("subject not available")
+            #    continue
             
             # Construct keys for unit and point using the same index
             unit_key = f'subject_{subject_id}_unit'
@@ -108,7 +113,7 @@ def result(request, pk):
                 cu += unit   # Update CU
                 
                 subjects.append({
-                    'name': subject.subject_name,
+                    'name': subject_id,
                     'mark': value,
                     'unit': unit,
                     'point': point,
