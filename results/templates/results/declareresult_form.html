@@ -70,8 +70,9 @@
                     for (let i = 0; i < myObj.length; i++) {
                         subjectName = myObj[i].fields.subject_name
 
-                        code = '<div class="form-group"><div class="col-sm-2"><label for="" class="control-label">' + subjectName + '</label></div ><div class="col-sm-2"><input type="hidden" name="subject_' + i + '" value="' + subjectName + '"><input type="number" name="subject_' + i + '_mark" class="form-control" placeholder="Enter Mark For ' + subjectName + '"><input type="number" name="subject_' + i + '_point" class="form-control" placeholder="Enter Point For ' + subjectName + '"><input type="number" name="subject_' + i + '_unit" class="form-control" placeholder="Enter Unit For ' + subjectName + '"></div></div>';
+                        /*code = '<div class="form-group"><div class="col-sm-2"><label for="" class="control-label">' + subjectName + '</label></div ><div class="col-sm-2"><input type="hidden" name="subject_' + i + '" value="' + subjectName + '"><input type="number" name="subject_' + i + '_mark" class="form-control" placeholder="Enter Mark For ' + subjectName + '"><input type="number" name="subject_' + i + '_point" class="form-control" placeholder="Enter Point For ' + subjectName + '"><input type="number" name="subject_' + i + '_unit" class="form-control" placeholder="Enter Unit For ' + subjectName + '"></div></div>';*/
 
+                        code = '<div class="form-group"><div class="col-sm-2"><label for="" class="control-label">' + subjectName + '</label></div ><div class="col-sm-2"><input type="hidden" name=' + subjectName + '" value="' + subjectName + '"><input type="number" name="subject_' + subjectName + '_mark" class="form-control" placeholder="Enter Mark For ' + subjectName + '"><input type="number" name="subject_' + subjectName + '_point" class="form-control" placeholder="Enter Point For ' + subjectName + '"><input type="number" name="subject_' + subjectName + '_unit" class="form-control" placeholder="Enter Unit For ' + subjectName + '"></div></div>';
 
                         $('#add_field').append(code)                    
                     }
