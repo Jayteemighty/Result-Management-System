@@ -12,6 +12,7 @@ class DeclareResult(models.Model):
     marks = JSONField(blank=True)
     point = JSONField(blank=True)
     unit = JSONField(blank=True)
+    cgpa = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('results:declare_result')
