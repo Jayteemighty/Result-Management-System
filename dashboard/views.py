@@ -115,7 +115,10 @@ def result(request, pk):
         cgpa = round(cwgp / cu, 2)
     else:
         cgpa = 0
-
+        
+    object.cgpa = cgpa
+    object.save()
+    
     return render(request, 'result.html', {
         'object': object,
         'pk': pk,

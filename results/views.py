@@ -131,6 +131,57 @@ class DeclareResultListView(ListView):
         context['i'] = range(len(context['subjects']))  # Generate a range of integers based on the number of subjects
         context['marks'] = [f'subject_{index}_mark' for index in context['i']]  # Generate the marks list dynamically
         return context
+    
+    def result(request, pk):
+        object = get_object_or_404(DeclareResult, pk=pk)
+    
+    
+        subjects = []
+        wgp = []
+        cwgp = 0  
+        cu = 0    
+    
+        for key, value in object.marks.items():
+        
+            if key.endswith('_mark'):
+            
+                subject_id = key.split('_')[1]
+            
+                unit_key = f'subject_{subject_id}_unit'
+                point_key = f'subject_{subject_id}_point'
+            
+                if unit_key in object.unit and point_key in object.point:
+                    unit = float(object.unit[unit_key])
+                    point = float(object.point[point_key])
+                    wgp = round(unit * point, 2)  # Calculate WGP
+                    cwgp += wgp  # Update CWGP
+                    cu += unit   # Update CU
+                
+                    subjects.append({
+                        'name': subject_id,
+                        'mark': value,
+                        'unit': unit,
+                        'point': point,
+                        'WGP': wgp,
+                    })
+        if cu != 0:
+            cgpa = round(cwgp / cu, 2)
+        else:
+            cgpa = 0
+        
+        object.cgpa = cgpa
+        object.save()
+    
+        return render(request, 'result.html', {
+            'object': object,
+            'pk': pk,
+            'subjects': subjects,
+            'WGP': wgp,
+            'CWGP': cwgp,
+            'CU': cu,
+            'CGPA': cgpa,
+    })
+
 
 
     
