@@ -121,25 +121,36 @@ def result_delete_view(request, pk):
 class DeclareResultListView(ListView):
     model = DeclareResult
     template_name = 'results/declareresult_list.html'
-    
-    def result(request, pk):
-        object = get_object_or_404(DeclareResult, pk=pk)
 
-        subjects = []
-        wgp = []
-        cwgp = 0  
-        cu = 0    
-    
-        for key, value in object.marks.items():
-                unit = float(object.unit)
-                point = float(object.point)
-                wgp = round(unit * point, 2)  # Calculate WGP
-                cwgp += wgp  # Update CWGP
-                cu += unit   # Update CU
-        if cu != 0:
-            cgpa = round(cwgp / cu, 2)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        for result in queryset:
+            self.calculate_cgpa(result)
+        return queryset
+
+    def calculate_cgpa(self, result):
+        cwgp = 0  # Cumulative Weighted points
+        cu = 0    # Cumulative Units
+
+        for key, value in result.marks.items():
+            if key.endswith('_mark'):
+                subject_id = key.split('_')[1]
+                unit_key = f'subject_{subject_id}_unit'
+                point_key = f'subject_{subject_id}_point'
+
+                if unit_key in result.unit and point_key in result.point:
+                    unit = float(result.unit[unit_key])
+                    point = float(result.point[point_key])
+                    wgp = round(unit * point, 2)
+                    cwgp += wgp
+                    cu += unit
+
+        if cu > 0:
+            result.cgpa = round(cwgp / cu, 2)
         else:
-            cgpa = 0
+            result.cgpa = 0
+        result.save()  # Update the result with the calculated CGPA
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
